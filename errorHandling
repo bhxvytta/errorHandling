@@ -1,0 +1,21 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.1;
+contract SimpleContract {
+    uint public value;
+    address public owner;
+    constructor() {
+        owner = msg.sender;
+        value = 0;
+    }
+    function setValue(uint _value) public {
+        require(owner == msg.sender, "You are not the owner");
+        value = _value;
+    }
+    function increaseValue(uint _increment) public {
+        assert(_increment > 0); 
+        if (value + _increment < value) { 
+            revert("Overflow error");
+        }
+        value += _increment;
+    }
+}
